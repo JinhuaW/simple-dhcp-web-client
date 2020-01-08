@@ -22,7 +22,7 @@ You run this command as root, the server will start.
 
 # Screenshot
 
-![](http://i.gyazo.com/6a72b83f40640a2547d7518cf4994ef3.png)
+![](https://github.com/JinhuaW/Picutures/blob/master/DHCP_webui.png)
 
 # ISC DHCP
 
