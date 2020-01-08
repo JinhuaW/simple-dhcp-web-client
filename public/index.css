@@ -9,12 +9,11 @@
 
 body{
 	-webkit-font-smoothing: antialiased;
-	color: rgb(247, 255, 173);
+	color: rgb(0, 0, 128);
 	display: block;
 	font-size: 28px;
 	font-style: normal;
 	font-weight: 200;
-	background-image: url(img/bg.jpg);
 	background-size: cover;
 }
 .active {
@@ -29,18 +28,24 @@ body{
 }
 .ip{
 	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
+	color: rgb(0,204,102);
 }
 
 .container{
 	display:flex;
 }
 
-.column{
+.column_dev_info{
 	flex:1;
 	margin: 20px;
+	width: 70%;
 	font-family: 'HelveticaNeue-UltraLight', Helvetica, Meiryo, Arial, sans-serif;
 }
-
+.column_mgmt_info{
+	margin: 20px;
+	font-family: 'HelveticaNeue-UltraLight', Helvetica, Meiryo, Arial, sans-serif;
+	border-left: 1px solid blue;
+}
 .column__title{
 	text-align: center;
 	margin: 20px;
@@ -59,8 +64,8 @@ body{
 	padding: 20px;
 }
 .mac{
-	font-size: 1rem;
-	text-align: right;
+	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
+	color: rgb(32,32,32);
 }
 
 .date{
@@ -68,8 +73,14 @@ body{
 	text-align: right;
 }
 
+.hostname {
+	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
+	color: rgb(220,20,60);
+}
+
 span.hostname {
-  color: rgb(255, 155, 0);
+	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
+	color: rgb(102, 0, 0);
 }
 
 .simple-form {
@@ -86,9 +97,8 @@ input {
 button {
 	font-size: 1rem;
 	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
-	padding: 5px 15px;
-	margin-top: 10px;
-	background-color: rgba(21, 13, 92, 0.7);
+	padding: 5px 5px;
+	background-color: rgba(21, 13, 92, 1);
 	color: rgb(234, 242, 163);
 	border-style: none;
 	cursor: pointer;
@@ -109,4 +119,22 @@ button:hover {
 hr {
 	color: rgb(234, 242, 163);
 	margin: 40px 10px;
+}
+.table_1 {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.td_1, .th_1 {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.th_1 {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
 }

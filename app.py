@@ -38,7 +38,7 @@ def add_fix():
     hostname = request.forms.get('hostname')
     mac = request.forms.get('mac')
     ip = request.forms.get('ip')
-    print hostname, mac, ip
+    print(hostname, mac, ip)
     add_fix(hostname, mac, ip)
     restart_dhcpd()
     return dict(status=True)
