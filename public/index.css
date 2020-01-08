@@ -9,7 +9,7 @@
 
 body{
 	-webkit-font-smoothing: antialiased;
-	color: rgb(0, 0, 128);
+	color: rgb(0, 0, 0);
 	display: block;
 	font-size: 28px;
 	font-style: normal;
@@ -44,7 +44,7 @@ body{
 .column_mgmt_info{
 	margin: 20px;
 	font-family: 'HelveticaNeue-UltraLight', Helvetica, Meiryo, Arial, sans-serif;
-	border-left: 1px solid blue;
+	border-left: 1px solid grey;
 }
 .column__title{
 	text-align: center;
@@ -93,18 +93,15 @@ input {
 	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
 	margin: 20px 10px;
 }
-
 button {
-	font-size: 1rem;
-	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
-	padding: 5px 5px;
-	background-color: rgba(21, 13, 92, 1);
-	color: rgb(234, 242, 163);
-	border-style: none;
-	cursor: pointer;
-}
-button:hover {
-	background-color: rgba(21, 13, 92, 1);
+	background-color: #e7e7e7;
+	border: none;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
 }
 .submit {
 	padding: 10px 40px;
@@ -135,6 +132,6 @@ hr {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #4CAF50;
+  background-color: #696969;
   color: white;
 }
