@@ -12,11 +12,17 @@
 			<div>
 				<table border="1" class="table_1">
 					<tr>
-						<th class="th_1">Hostname</th>
-						<th class="th_1">IP</th>
-						<th class="th_1">MAC</th>
-						<th class="th_1">Status</th>
-						<th class="th_1">Action</th>
+						<th class="th_1" width="20%">Hostname
+							<span class="sort_arrow" v-on="click: orderFnFixed('hostname', false)">↑</span>
+							<span class="sort_arrow" v-on="click: orderFnFixed('hostname', true)">↓</span>
+						</th>
+						<th class="th_1" width="25%">IP
+							<span class="sort_arrow" v-on="click: orderFnFixed('id', false)">↑</span>
+							<span class="sort_arrow" v-on="click: orderFnFixed('id', true)">↓</span>
+						</th>
+						<th class="th_1" width="25%">MAC</th>
+						<th class="th_1" width="13%">Status</th>
+						<th class="th_1" width="12%">Action</th>
 					</tr>
 					<tr v-repeat="item : fixed">
 						<td class="td_1"><span class="hostname">{{item.hostname}}</span></td>
@@ -31,11 +37,23 @@
 			<div class="column__title">DHCP Lease Information</div>
 			<table border="1" class="table_1">
 				<tr>
-					<th class="th_1">Hostname</th>
-					<th class="th_1">IP</th>
+					<th class="th_1">Hostname
+						<span class="sort_arrow" v-on="click: orderFnStaging('hostname', false)">↑</span>
+						<span class="sort_arrow" v-on="click: orderFnStaging('hostname', true)">↓</span>
+					</th>
+					<th class="th_1">IP
+						<span class="sort_arrow" v-on="click: orderFnStaging('id', false)">↑</span>
+						<span class="sort_arrow" v-on="click: orderFnStaging('id', true)">↓</span>
+					</th>
 					<th class="th_1">MAC</th>
-					<th class="th_1">Lease Start</th>
-					<th class="th_1">Lease End</th>
+					<th class="th_1">Lease Start
+						<span class="sort_arrow" v-on="click: orderFnStaging('starts', false)">↑</span>
+						<span class="sort_arrow" v-on="click: orderFnStaging('starts', true)">↓</span>
+					</th>
+					<th class="th_1">Lease End
+						<span class="sort_arrow" v-on="click: orderFnStaging('ends', false)">↑</span>
+						<span class="sort_arrow" v-on="click: orderFnStaging('ends', true)">↓</span>
+					</th>
 					<th class="th_1">Status</th>
 					<th class="th_1">Action</th>
 				</tr>
@@ -68,16 +86,14 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><button class="submit" v-on="click: onAddClick">submit</button></td>
+					<td><button v-on="click: onAddClick">submit</button></td>
 				</tr>
 			</table>
 			<hr />
 			<div class="column__title">Restart DHCP</div>
 			<div class="column__subtitle">(admin area)</div>
 			<div class="simple-form">
-				<div class="button-center"><button class="submit" v-on="click: onRestartClick">restart</button><div>
-					</div>
-				</div>
+				<button v-on="click: onRestartClick">restart</button>
 			</div>
 		</div>
 	</div>
@@ -98,7 +114,11 @@
 			data: {
 				free_src : {},
 				staging_src: {},
-				fixed_src : {}
+				fixed_src : {},
+				letter_fixed : 'hostname',
+				original_fixed : false,
+				letter_staging : '',
+				original_staging : false
 			},
 			computed: {
 				free: function(){
@@ -110,7 +130,22 @@
 					return d2a(this.staging_src);
 				},
 				fixed: function(){
-					return d2a(this.fixed_src);
+					var _this = this
+					var obj = d2a(this.fixed_src);
+					if (this.letter_fixed != '') {
+						obj.sort(function(a, b){
+							var x = a[_this.letter_fixed].toLowerCase();
+							var y = b[_this.letter_fixed].toLowerCase();
+							var factor = 1;
+							if (_this.original_fixed) {
+								factor = -1;
+							}
+							if (x < y) {return -1 * factor;}
+							if (x > y) {return 1 * factor;}
+							return 0;
+						});
+					}
+					return obj;
 				}
 			},
 			ready: function(){
@@ -125,6 +160,17 @@
 						self.staging_src = res.body.staging;
 					})
 				},
+
+				orderFnFixed(letter,original){
+					this.letter_fixed = letter;
+					this.original_fixed = original;
+				},
+
+				orderFnStaging(letter,original){
+					this.letter_staging = letter;
+					this.original_staging = original;
+				},
+
 				onAddClick: function() {
 					hostname = document.querySelector('#hostname').value;
 					mac = document.querySelector('#mac_addr').value;
@@ -156,8 +202,6 @@
 							document.querySelector('#mac_addr').value = "";
 							document.querySelector('#ipv4_addr').value = "";
 						})
-				},
-				onAddClick: function(item) {
 				},
 				onDeleteClick: function(item) {
 					if (!confirm(item.hostname + 'Do you confirm to delete this binding?')) {
