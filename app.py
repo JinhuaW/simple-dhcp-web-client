@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from bottle import route, auth_basic, run, static_file, request
 import os
 import sys
@@ -6,7 +7,7 @@ import subprocess
 USERNAME = 'admin'
 PASSWORD = 'admin'
 
-DHCPD_LEASES = '/var/lib/dhcpd/dhcpd.leases'
+DHCPD_LEASES = '/var/lib/dhcp/dhcpd.leases'
 DHCPD_CONF = '/etc/dhcp/dhcpd.conf'
 
 # for test

@@ -22,7 +22,7 @@
 						<td class="td_1"><span class="hostname">{{item.hostname}}</span></td>
 						<td class="td_1"><span class="ip">{{item.id}}</span></td>
 						<td class="td_1"><span class="mac">{{item.mac}}</span></td>
-						<td class="td_1" align="center"><span class="active" v-if="item.state">active</span></td>
+						<td class="td_1" align="center"><span class="active" v-if="item.state">active</span><span class="offline" v-esle>offline</span></td>
 						<td class="td_1" align="center"><button v-on="click: onDeleteClick(item)">delete</button></td>
 					</tr>
 				</table>
@@ -45,8 +45,8 @@
 					<td class="td_1"><span class="mac">{{item.mac}}</span></td>
 					<td class="td_1" align="center"><span class="date">{{item.starts}}</span></td>
 					<td class="td_1" align="center"><span class="date">{{item.ends}}</span></td>
-					<td class="td_1" align="center"><span class="active" v-if="item.state">active</span></td>
-					<td class="td_1" align="center"><button v-on="click: onDeleteClick(item)">bind</button></td>
+					<td class="td_1" align="center"><span class="active" v-if="item.state">active</span><span class="offline" v-esle>offline</span></td>
+					<td class="td_1" align="center"><button v-on="click: onBindClick(item)">bind</button></td>
 				</tr>
 			</table>
 		</div>
@@ -55,15 +55,15 @@
 			<div class="column__subtitle">(admin area)</div>
 			<table border="0">
 				<tr>
-					<td>Hostname</td>
+					<td class="td_2">Hostname</td>
 					<td><input name="hostname" id="hostname" placeholder="ex. name"></td>
 				</tr>
 				<tr>
-					<td>MAC Address</td>
+					<td class="td_2">MAC Address</td>
 					<td><input name="mac" id="mac_addr" placeholder="ex. 08:00:27:ef:9a:50"></td>
 				</tr>
 				<tr>
-					<td>IP Address</td>
+					<td class="td_2">IP Address</td>
 					<td><input name="ip" id="ipv4_addr" placeholder="ex. 192.168.1.1"></td>
 				</tr>
 				<tr>
@@ -156,6 +156,8 @@
 							document.querySelector('#mac_addr').value = "";
 							document.querySelector('#ipv4_addr').value = "";
 						})
+				},
+				onAddClick: function(item) {
 				},
 				onDeleteClick: function(item) {
 					if (!confirm(item.hostname + 'Do you confirm to delete this binding?')) {
