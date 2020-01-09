@@ -25,9 +25,9 @@
 						<th class="th_1" width="12%">Action</th>
 					</tr>
 					<tr v-repeat="item : fixed">
-						<td class="td_1"><span class="hostname">{{item.hostname}}</span></td>
-						<td class="td_1"><span class="ip">{{item.id}}</span></td>
-						<td class="td_1"><span class="mac">{{item.mac}}</span></td>
+						<td class="td_1">{{item.hostname}}</td>
+						<td class="td_1">{{item.id}}</td>
+						<td class="td_1">{{item.mac}}</td>
 						<td class="td_1" align="center"><span class="active" v-if="item.state">active</span><span class="offline" v-esle>offline</span></td>
 						<td class="td_1" align="center"><button v-on="click: onDeleteClick(item)">delete</button></td>
 					</tr>

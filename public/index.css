@@ -15,6 +15,7 @@ body{
 	font-style: normal;
 	font-weight: 200;
 	background-size: cover;
+	font-family: 'HelveticaNeue-Thin', Helvetica, Meiryo, Arial, sans-serif;
 }
 .active {
 	background-color: rgb(0,100,0);
@@ -160,10 +161,15 @@ hr {
 
 .td_1, .th_1 {
   border: 1px solid #ddd;
-  padding: 8px;
+}
+
+.td_1 {
+	font-size: 20px;
+	color: rgb(105,105,105);
 }
 
 .th_1 {
+  font-size: 28px;
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
