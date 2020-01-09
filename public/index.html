@@ -37,25 +37,25 @@
 			<div class="column__title">DHCP Lease Information</div>
 			<table border="1" class="table_1">
 				<tr>
-					<th class="th_1">Hostname
+					<th class="th_1" width="17%">Hostname
 						<span class="sort_arrow" v-on="click: orderFnStaging('hostname', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('hostname', true)">↓</span>
 					</th>
-					<th class="th_1">IP
+					<th class="th_1" width="21%">IP
 						<span class="sort_arrow" v-on="click: orderFnStaging('id', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('id', true)">↓</span>
 					</th>
-					<th class="th_1">MAC</th>
-					<th class="th_1">Lease Start
+					<th class="th_1" width="22%">MAC</th>
+					<th class="th_1" width="20%">Lease Start
 						<span class="sort_arrow" v-on="click: orderFnStaging('starts', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('starts', true)">↓</span>
 					</th>
-					<th class="th_1">Lease End
+					<th class="th_1" width="20%">Lease End
 						<span class="sort_arrow" v-on="click: orderFnStaging('ends', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('ends', true)">↓</span>
 					</th>
-					<th class="th_1">Status</th>
-					<th class="th_1">Action</th>
+					<th class="th_1" width="10%">Status</th>
+					<th class="th_1" width="10%">Action</th>
 				</tr>
 				<tr v-repeat="item : staging">
 					<td class="td_1"><span class="hostname">{{item.hostname}}</span></td>
