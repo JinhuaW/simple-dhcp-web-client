@@ -85,15 +85,25 @@
 					<td><input name="ip" id="ipv4_addr" placeholder="ex. 192.168.1.1"></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td><button v-on="click: onAddClick">submit</button></td>
+					<td colspan="2" align="center"><button v-on="click: onAddClick">submit</button></td>
 				</tr>
 			</table>
 			<hr />
-			<div class="column__title">Restart DHCP</div>
-			<div class="column__subtitle">(admin area)</div>
-			<div class="simple-form">
-				<button v-on="click: onRestartClick">restart</button>
+			<table border="0" width="100%">
+				<tr>
+					<td align="center"><span class="column__title">Restart DHCP</span></td>
+				</tr>
+				<tr>
+					<td align="center"><span class="column__subtitle">(admin area)</span></td>
+				</tr>
+				<tr>
+					<td>&nbsp</td>
+				</tr>
+				<tr>
+					<td align="center"><button v-on="click: onRestartClick">restart</button></td>
+				</tr>
+			</table>
+			<div>
 			</div>
 		</div>
 	</div>
