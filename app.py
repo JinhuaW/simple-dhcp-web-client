@@ -169,7 +169,7 @@ def delete_fix(host, mac):
 
 
 def restart_dhcpd():
-    p = subprocess.Popen('systemctl restart dhcpd', shell=True,
+    p = subprocess.Popen('systemctl restart isc-dhcp-server', shell=True,
                          cwd='.',
                          stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE,
