@@ -163,17 +163,39 @@
 					var _this = this
 					var obj = d2a(this.staging_src);
 					if (this.letter_staging != '') {
-						obj.sort(function(a, b){
-							var x = a[_this.letter_staging].toLowerCase();
-							var y = b[_this.letter_staging].toLowerCase();
-							var factor = 1;
-							if (_this.original_staging) {
-								factor = -1;
-							}
-							if (x < y) {return -1 * factor;}
-							if (x > y) {return 1 * factor;}
-							return 0;
-						});
+						if (this.letter_fixed == 'id') {
+							obj.sort(function(a, b){
+								var x = a[_this.letter_fixed].split('.');
+								var y = b[_this.letter_fixed].split('.');
+								var factor = 1;
+								if (_this.original_fixed) {
+									factor = -1;
+								}
+								for (var i=0; i < 4; i++) {
+									var xi = parseInt(x[i]);
+									var yi = parseInt(y[i]);
+									if (xi < yi) {
+										return -1 * factor;
+									}
+									if (xi > yi) {
+										return 1 * factor;
+									}
+								}
+								return 0;
+							});
+						} else {
+							obj.sort(function(a, b){
+								var x = a[_this.letter_staging].toLowerCase();
+								var y = b[_this.letter_staging].toLowerCase();
+								var factor = 1;
+								if (_this.original_staging) {
+									factor = -1;
+								}
+								if (x < y) {return -1 * factor;}
+								if (x > y) {return 1 * factor;}
+								return 0;
+							});
+						}
 					}
 					return obj;
 				},
@@ -181,17 +203,40 @@
 					var _this = this
 					var obj = d2a(this.fixed_src);
 					if (this.letter_fixed != '') {
-						obj.sort(function(a, b){
-							var x = a[_this.letter_fixed].toLowerCase();
-							var y = b[_this.letter_fixed].toLowerCase();
-							var factor = 1;
-							if (_this.original_fixed) {
-								factor = -1;
-							}
-							if (x < y) {return -1 * factor;}
-							if (x > y) {return 1 * factor;}
-							return 0;
-						});
+						if (this.letter_fixed == 'id') {
+							obj.sort(function(a, b){
+								var x = a[_this.letter_fixed].split('.');
+								var y = b[_this.letter_fixed].split('.');
+								var factor = 1;
+								if (_this.original_fixed) {
+									factor = -1;
+								}
+								for (var i=0; i < 4; i++) {
+									var xi = parseInt(x[i]);
+									var yi = parseInt(y[i]);
+									if (xi < yi) {
+										return -1 * factor;
+									}
+									if (xi > yi) {
+										return 1 * factor;
+									}
+								}
+								return 0;
+							});
+						} else {
+							obj.sort(function(a, b){
+								var x = a[_this.letter_fixed].toLowerCase();
+								var y = b[_this.letter_fixed].toLowerCase();
+								console.log(x.split('.')[0], y.split('.')[0], x.split('.')[0] < y.split('.')[0]);
+								var factor = 1;
+								if (_this.original_fixed) {
+									factor = -1;
+								}
+								if (x < y) {return -1 * factor;}
+								if (x > y) {return 1 * factor;}
+								return 0;
+							});
+						}
 					}
 					return obj;
 				}
