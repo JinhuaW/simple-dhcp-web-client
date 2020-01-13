@@ -138,8 +138,6 @@
 			},
 			filters: {
 				formatUnix: function (value) {
-					console.log(value)
-					console.log(moment.unix(value))
 					if (value) {
 						return moment.unix(value).format('YYYY-MM-DD hh:mm:ss')
 					}
