@@ -118,9 +118,9 @@ def read_lease(f):
             break
         ws = l.split(' ')
         if ws[2] in 'starts':
-            d['starts'] = ws[4] + ' ' + ws[5].replace(';\n', '')
+            d['starts'] =  ws[4].replace(';', '')
         elif ws[2] in 'ends':
-            d['ends'] = ws[4] + ' ' + ws[5].replace(';\n', '')
+            d['ends'] = ws[4].replace(';', '')
         elif ws[2] in 'binding':
             d['binding'] = ws[4].replace(';\n', '')
             if d['binding'] == 'active':

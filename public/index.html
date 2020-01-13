@@ -12,24 +12,24 @@
 			<div>
 				<table border="1" class="table_1">
 					<tr>
-						<th class="th_1" width="20%">Hostname
+						<th class="th_1" width="25%">Hostname
 							<span class="sort_arrow" v-on="click: orderFnFixed('hostname', false)">↑</span>
 							<span class="sort_arrow" v-on="click: orderFnFixed('hostname', true)">↓</span>
 						</th>
-						<th class="th_1" width="25%">IP
+						<th class="th_1" width="30%">IP
 							<span class="sort_arrow" v-on="click: orderFnFixed('id', false)">↑</span>
 							<span class="sort_arrow" v-on="click: orderFnFixed('id', true)">↓</span>
 						</th>
-						<th class="th_1" width="25%">MAC</th>
-						<th class="th_1" width="13%">Status</th>
-						<th class="th_1" width="12%">Action</th>
+						<th class="th_1" width="30%">MAC</th>
+						<th class="th_1" width="15%">Action</th>
 					</tr>
 					<tr v-repeat="item : fixed">
 						<td class="td_1">{{item.hostname}}</td>
 						<td class="td_1">{{item.id}}</td>
 						<td class="td_1">{{item.mac}}</td>
-						<td class="td_1" align="center"><span class="active" v-if="item.state">active</span><span class="offline" v-esle>offline</span></td>
-						<td class="td_1" align="center"><button v-on="click: onDeleteClick(item)">delete</button></td>
+						<td class="td_1" align="center">
+							<button v-on="click: onDeleteClick(item)">delete</button>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -61,9 +61,14 @@
 					<td class="td_1"><span class="hostname">{{item.hostname}}</span></td>
 					<td class="td_1"><span class="ip">{{item.id}}</span></td>
 					<td class="td_1"><span class="mac">{{item.mac}}</span></td>
-					<td class="td_1" align="center"><span class="date">{{item.starts}}</span></td>
-					<td class="td_1" align="center"><span class="date">{{item.ends}}</span></td>
-					<td class="td_1" align="center"><span class="active" v-if="item.state">active</span><span class="offline" v-esle>offline</span></td>
+					<td class="td_1" align="center"><span class="date">{{item.starts | formatUnix}}</span></td>
+					<td class="td_1" align="center"><span class="date">{{item.ends | formatUnix}}</span></td>
+					<td class="td_1" align="center">
+						<span class="active" v-if="item.state">active</span>
+						<!--
+						<span class="offline" v-esle>offline</span>
+						-->
+					</td>
 					<td class="td_1" align="center"><button v-on="click: onBindClick(item)">bind</button></td>
 				</tr>
 			</table>
@@ -74,15 +79,15 @@
 			<table border="0">
 				<tr>
 					<td class="td_2">Hostname</td>
-					<td><input name="hostname" id="hostname" placeholder="ex. name"></td>
+					<td><input name="hostname" id="hostname" placeholder="ex. name" size="30"></td>
 				</tr>
 				<tr>
-					<td class="td_2">MAC Address</td>
-					<td><input name="mac" id="mac_addr" placeholder="ex. 08:00:27:ef:9a:50"></td>
+					<td class="td_2">MAC Addr</td>
+					<td><input name="mac" id="mac_addr" placeholder="ex. 08:00:27:ef:9a:50" size="30"></td>
 				</tr>
 				<tr>
-					<td class="td_2">IP Address</td>
-					<td><input name="ip" id="ipv4_addr" placeholder="ex. 192.168.1.1"></td>
+					<td class="td_2">IP Addr</td>
+					<td><input name="ip" id="ipv4_addr" placeholder="ex. 192.168.<rack_id>.<2-199>" size="30"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><button v-on="click: onAddClick">submit</button></td>
@@ -109,6 +114,7 @@
 	</div>
 	<script src="js/vue.min.js"></script>
 	<script src="js/superagent.js"></script>
+	<script src="js/moment.min.js"></script>
 	<script>
 		var request = window.superagent;
 		function d2a(dict){
@@ -129,6 +135,15 @@
 				original_fixed : false,
 				letter_staging : '',
 				original_staging : false
+			},
+			filters: {
+				formatUnix: function (value) {
+					console.log(value)
+					console.log(moment.unix(value))
+					if (value) {
+						return moment.unix(value).format('YYYY-MM-DD hh:mm:ss')
+					}
+				}
 			},
 			computed: {
 				free: function(){
