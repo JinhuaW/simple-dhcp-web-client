@@ -148,6 +148,17 @@ def write_dhcpd_conf(lines):
 
 def add_fix(host, mac, ip):
     lines = read_dhcpd_conf()
+    for i, line in enumerate(lines):
+        if line.startswith('host'):
+            if line.split(' ')[1] == host:
+                print ('Duplicated device: ' + host + ' ' + mac + ' ' + ip)
+                return
+                val = lines[i+1].split(' ')[4].replace(';\n', '')
+                if val == mac:
+                    return
+                val = lines[i+2].split(' ')[3].replace(';\n', '')
+                if val == ip:
+                    return
     lines.append('host ' + host + ' {\n')
     lines.append('  hardware ethernet ' + mac + ';\n')
     lines.append('  fixed-address ' + ip + ';\n')
