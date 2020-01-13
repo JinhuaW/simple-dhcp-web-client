@@ -41,12 +41,12 @@
 						<span class="sort_arrow" v-on="click: orderFnStaging('hostname', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('hostname', true)">↓</span>
 					</th>
-					<th class="th_1" width="21%">IP
+					<th class="th_1" width="20%">IP
 						<span class="sort_arrow" v-on="click: orderFnStaging('id', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('id', true)">↓</span>
 					</th>
-					<th class="th_1" width="22%">MAC</th>
-					<th class="th_1" width="20%">Lease Start
+					<th class="th_1" width="21%">MAC</th>
+					<th class="th_1" width="22%">Lease Start
 						<span class="sort_arrow" v-on="click: orderFnStaging('starts', false)">↑</span>
 						<span class="sort_arrow" v-on="click: orderFnStaging('starts', true)">↓</span>
 					</th>
@@ -125,6 +125,16 @@
 				return o;
 			});
 		}
+		function checkDuplicate(hostname, mac, ip, items) {
+			for (var id in items ) {
+				if (hostname === items[id].hostname
+					|| mac.toLowerCase() === items[id].mac.toLowerCase()
+					|| ip === items[id].id) {
+					return items[id];
+				}
+			}
+			return null;
+		}
 		var app = new Vue({
 			el: "#main",
 			data: {
@@ -150,7 +160,22 @@
 					});
 				},
 				staging: function(){
-					return d2a(this.staging_src);
+					var _this = this
+					var obj = d2a(this.staging_src);
+					if (this.letter_staging != '') {
+						obj.sort(function(a, b){
+							var x = a[_this.letter_staging].toLowerCase();
+							var y = b[_this.letter_staging].toLowerCase();
+							var factor = 1;
+							if (_this.original_staging) {
+								factor = -1;
+							}
+							if (x < y) {return -1 * factor;}
+							if (x > y) {return 1 * factor;}
+							return 0;
+						});
+					}
+					return obj;
 				},
 				fixed: function(){
 					var _this = this
@@ -211,6 +236,11 @@
 						alert("Warning: Invalid IPv4 Address");
 						return;
 					}
+					var found = checkDuplicate(hostname, mac, ipv4, this.fixed_src);
+					if (found) {
+						alert("Warning: Duplicated Device, Exsiting Device Info:\n    Hostname\t: " + found.hostname + "\n    IP Address\t: " + found.id + "\n    MAC Addr\t: " + found.mac);
+						return;
+					}
 					if (!confirm('Binding MAC/IP\nHOSTNAME: ' + hostname + '\nMAC: ' + mac + '\nIP' + ipv4 + '\nInformation Confirm')) {
 						return false;
 					}
@@ -227,10 +257,15 @@
 						})
 				},
 				onBindClick: function(item) {
+					var self = this;
+					var found = checkDuplicate(item.hostname, item.mac, item.id, self.fixed_src);
+					if (found) {
+						alert("Warning: Duplicated Device, Exsiting Device Info:\n    Hostname\t: " + found.hostname + "\n    IP Address\t: " + found.id + "\n    MAC Addr\t: " + found.mac);
+						return;
+					}
 					if (!confirm('Binding MAC/IP\nHOSTNAME: ' + item.hostname + '\nMAC: ' + item.mac + '\nIP' + item.id + '\nInformation Confirm')) {
 						return false;
 					}
-					var self = this;
 					request
 						.post('admin/addfix')
 						.type('form')
