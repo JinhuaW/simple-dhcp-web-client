@@ -228,6 +228,19 @@
 							document.querySelector('#ipv4_addr').value = "";
 						})
 				},
+				onBindClick: function(item) {
+					if (!confirm('Binding MAC/IP\nHOSTNAME: ' + item.hostname + '\nMAC: ' + item.mac + '\nIP' + item.id + '\nInformation Confirm')) {
+						return false;
+					}
+					var self = this;
+					request
+						.post('admin/addfix')
+						.type('form')
+						.send({hostname: item.hostname, mac: item.mac, ip: item.id})
+						.end(function(err, res) {
+							self.update();
+						})
+				},
 				onDeleteClick: function(item) {
 					if (!confirm(item.hostname + 'Do you confirm to delete this binding?')) {
 						return false;
